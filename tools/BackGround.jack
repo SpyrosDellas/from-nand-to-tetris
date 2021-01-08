@@ -1,0 +1,56 @@
+/** Draws a grey background in the screen */
+
+class BackGround {
+
+  function void draw() {
+    var int memAddress;
+    var int counter1, counter2;
+    var char key;
+    var String first_name, surname;
+
+    let memAddress = 23520;
+    while (counter1 < 16) {
+      while (counter2 < 64) {
+        do Memory.poke(memAddress + counter2, -13108);
+        do Memory.poke(memAddress + 64 + counter2, 13107);
+        let counter2 = counter2 + 1;
+      }
+      let counter1 = counter1 + 4;
+      let counter2 = 0;
+      let memAddress = memAddress + 128;
+    }
+
+    do Output.moveCursor(22, 0);
+    do Output.printString("Proudly created for NAND to Tetris by Spyros Dellas, Feb 2020");
+
+    do Output.moveCursor(2, 0);
+    do Output.printString(" Hello Stranger!");
+    do Output.moveCursor(4, 0);
+    do Output.printString(" I would like to create a bouncing text consisting of your name.");
+    do Output.moveCursor(6, 0);
+    let first_name = Keyboard.readLine(" Can you please let me know your first name? > ");
+    let surname = Keyboard.readLine(" And your surname? > ");
+    do Output.moveCursor(9, 0);
+    do Output.printString(" Thank you! Press any key to start and stop...");
+
+    while (key = 0) {
+       let key = Keyboard.keyPressed();
+    }
+
+    /* Clear the bouncing area of the screen only */
+    let memAddress = 16384;
+    while (memAddress < 23552) {
+      do Memory.poke(memAddress, 0);
+      let memAddress = memAddress + 1;
+    }
+
+
+    do Output.moveCursor(10, 5);
+    do Output.printString(first_name);
+    do Output.moveCursor(11, 5);
+    do Output.printString(surname);
+
+    return;
+  }
+
+}
